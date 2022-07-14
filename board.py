@@ -15,37 +15,41 @@ def printBoard():
     index = index + 1
 
 def checkMark(row, column):
-    if int(row) == 0:
+    if int(row) == 0 and int(column) < 3:
         if rowOne[int(column)] != " _ ":
             print("There is something already on this square. Please try again")
+            squareCheck = "False"
         else:
             squareCheck = "True"
-            print(squareCheck)
-    elif int(row) == 1:
+    elif int(row) == 1 and int(column) < 3:
         if rowTwo[int(column)] != " _ ":
             print("There is something already on this square. Please try again")
+            squareCheck = "False"
         else:
             squareCheck = "True"
-    elif int(row) == 2:
+    elif int(row) == 2 and int(column) < 3:
         if rowThree[int(column)] != " _ ":
             print("There is something already on this square. Please try again")
+            squareCheck = "False"
         else:
             squareCheck = "True"
     else:
-        print("Please make sure that the row is between 0 and 2.")
+        print("Please make sure that the row and column are between 0 and 2.")
+        squareCheck = "False"
     return(squareCheck)
 
 def placeMark(row, column, player):
-    if row == 0:
+    if int(row) == 0:
         rowOne[int(column)] = player
-    elif row == 1:
+    elif int(row) == 1:
         rowTwo[int(column)] = player
-    elif row == 2:
+    elif int(row) == 2:
         rowThree[int(column)] = player
     
 
 
 def gameOver(player):
+    gameResult = ""
     if rowOne == [player, player, player] or rowTwo == [player, player, player] or rowThree == [player, player, player]:
         gameResult = "Game Over"
     elif rowOne[0] == player and rowTwo[0] == player and rowThree[0] == player:
@@ -59,10 +63,11 @@ def gameOver(player):
     elif rowOne[2] == player and rowTwo[1] == player and rowThree[0] == player:
         gameResult = "Game Over"
     else:
-        pass
+        gameResult = ""
     return gameResult
 
-def round():
+
+while gameResult == "":
     printBoard()
     print("Player 1's turn.")
     player = " X "
@@ -73,10 +78,10 @@ def round():
         print("Enter a column number from 0-2")
         column=input()
         squareCheck = checkMark(row, column)
-        print(squareCheck)
     placeMark(row, column, player)
-    gameOver(player)
+    gameResult = gameOver(player)
     printBoard()
+    squareCheck = "False"
     print("Player 2's turn.")
     player = " O "
     while squareCheck == "False":
@@ -84,10 +89,6 @@ def round():
         row=input()
         print("Enter a column number from 0-2")
         column=input()
-        checkMark(row, column)
+        squareCheck = checkMark(row, column)
     placeMark(row, column, player)
-    gameOver(player)
-
-while gameResult == "":
-    round()
-    
+    gameResult = gameOver(player)

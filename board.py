@@ -7,13 +7,14 @@ player = " X "
 global squareCheck
 squareCheck = "False"
 
-
+#Displays game board in terminall
 def printBoard():
  index = 0
  while index < 3:
     print(gameBoard[index])
     index = index + 1
 
+# Checks if input is valid
 def checkMark(row, column):
     if int(row) == 0 and int(column) < 3:
         if rowOne[int(column)] != " _ ":
@@ -38,6 +39,7 @@ def checkMark(row, column):
         squareCheck = "False"
     return(squareCheck)
 
+# Places current players icon on board
 def placeMark(row, column, player):
     if int(row) == 0:
         rowOne[int(column)] = player
@@ -46,8 +48,7 @@ def placeMark(row, column, player):
     elif int(row) == 2:
         rowThree[int(column)] = player
     
-
-
+#Creates appropriate message for game result
 def gameOver(player):
     playerName = ""
     if player == " X ":
@@ -88,7 +89,7 @@ def gameOver(player):
             gameResult = ""
     return gameResult
 
-
+#Game loop
 while gameResult == "":
     printBoard()
     print("Player 1's turn.")
